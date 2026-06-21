@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # security.md — Nexalaw
 
 These rules govern every security, privacy, and compliance decision in the Nexalaw codebase. Nexalaw handles sensitive legal documents belonging to real people and businesses. A security failure here is not just a technical problem — it is a legal and reputational one. Every rule in this file is binding with no exceptions.
@@ -29,11 +33,9 @@ const requiredEnvVars = [
   'FLUTTERWAVE_SECRET_KEY',
   'FLUTTERWAVE_WEBHOOK_SECRET',
   'SMTP_HOST',
-  'SMTP_PORT',
   'SMTP_USER',
   'SMTP_PASS',
   'EMAIL_FROM',
-  'CRON_SECRET',
 ] as const
 
 for (const key of requiredEnvVars) {
@@ -287,23 +289,7 @@ This is a regulatory requirement. It must appear on every response without excep
 
 ---
 
-## 10. Audit Logging
 
-All significant events must be logged for compliance. See `architecture.md` Section 8 for the full audit logging specification.
-
-**Quick reference — what must be logged:**
-- Document uploads (success + failure)
-- Every `QueryInteraction` creation
-- Every `GeneratedDocument` creation
-- Document deletions (manual + expiry)
-- Auth events (login, logout, failed attempts)
-
-**What must never appear in logs:**
-- Raw document text
-- Extracted clause content
-- Passwords or tokens
-- Raw DeepSeek API responses
-- Full Cloudinary URLs
 
 ---
 

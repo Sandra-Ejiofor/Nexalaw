@@ -24,6 +24,7 @@ export function SearchChat(): React.JSX.Element {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 50)
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery('')
       setResults([])
       setSelectedIndex(-1)

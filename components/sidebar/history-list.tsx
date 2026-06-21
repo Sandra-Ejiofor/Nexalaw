@@ -40,6 +40,7 @@ export function HistoryList(): React.JSX.Element {
 
   useEffect(() => {
     if (!session?.user) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchSessions()
   }, [session])
 

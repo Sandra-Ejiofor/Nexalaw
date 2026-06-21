@@ -30,6 +30,7 @@ export function DocumentUpload() {
       setError('File size exceeds the 10MB limit.')
       return false
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!ACCEPTED_MIME_TYPES.includes(file.type as any)) {
       setError('Unsupported file format. Please upload a PDF, TXT, or DOCX file.')
       return false
@@ -78,7 +79,7 @@ export function DocumentUpload() {
 
       setFile(null)
       router.refresh()
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred during upload.')
       setIsUploading(false)
     }

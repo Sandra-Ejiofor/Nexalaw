@@ -6,6 +6,7 @@ import { User, Shield, CreditCard, Bell } from 'lucide-react'
 
 export default async function SettingsPage() {
   const session = await getServerSession(authOptions)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userId = (session?.user as any)?.id
 
   const user = await prisma.user.findUnique({

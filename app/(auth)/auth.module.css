@@ -1,0 +1,269 @@
+/* ========================================================
+   AUTH PAGE — Split layout matching reference design
+   Left: beige panel with gavel image card
+   Right: form panel with white auth card
+   ======================================================== */
+
+/* Full-viewport split root */
+.pageRoot {
+  min-height: 100vh;
+  display: flex;
+  background: hsl(36, 22%, 93%); /* warm beige — matches reference bg */
+}
+
+/* ── LEFT PANEL ── */
+.imagePanel {
+  display: none; /* hidden on mobile */
+  width: 45%;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background: hsl(36, 22%, 93%);
+}
+
+/* Rounded image card — gavel photo floats inside the beige panel */
+.imageCard {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px hsla(0, 0%, 0%, 0.18);
+}
+
+.gavelImage {
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ── RIGHT PANEL ── */
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: #FAFAFA; /* right side background per request */
+}
+
+/* White floating auth card */
+.authCard {
+  width: 100%;
+  max-width: 480px; /* Expanded width */
+  background: #FFFFFF;
+  border: 1px solid hsl(0, 0%, 90%);
+  border-radius: 0px; /* Match reference, it looked square/sharp but I'll leave a tiny radius or remove it if reference is sharp. The reference looks perfectly square in the corners. Wait, let me make it border-radius: 0 to be safe, or just 4px. I will use 0. Actually, let me just keep 0px. */
+  padding: 48px 48px 40px;
+  box-shadow: 0 4px 24px hsla(0, 0%, 0%, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Logo centred at top */
+.logoWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* 20px space between logo and Welcome Back */
+}
+
+.authLogo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Heading block */
+.authHeader {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.authTitle {
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 32px;
+  color: hsl(0, 0%, 8%);
+  letter-spacing: -0.3px;
+  margin-bottom: 8px; /* 8px space between Welcome Back and Log in to get started */
+}
+
+.authSubtitle {
+  font-size: 14px;
+  color: hsl(0, 0%, 48%);
+  line-height: 1.5;
+}
+
+/* Error banner */
+.errorAlert {
+  padding: 10px 14px;
+  background: hsla(0, 65%, 48%, 0.08);
+  border-left: 3px solid hsl(0, 65%, 48%);
+  color: hsl(0, 65%, 40%);
+  font-size: 13px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: hsl(0, 0%, 12%);
+  letter-spacing: 0.01em;
+}
+
+.fieldInput {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid hsl(0, 0%, 82%);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: hsl(0, 0%, 10%);
+  background: hsl(0, 0%, 100%);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  box-sizing: border-box;
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: hsl(0, 0%, 30%);
+  box-shadow: 0 0 0 3px hsla(0, 0%, 0%, 0.06);
+}
+
+.fieldError {
+  border-color: hsl(0, 65%, 48%);
+}
+
+.fieldError:focus {
+  border-color: hsl(0, 65%, 48%);
+  box-shadow: 0 0 0 3px hsla(0, 65%, 48%, 0.12);
+}
+
+.fieldErrorMsg {
+  font-size: 12px;
+  color: hsl(0, 65%, 48%);
+  margin-top: 2px;
+}
+
+/* Password field */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInput {
+  padding-right: 44px;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: hsl(0, 0%, 55%);
+  cursor: pointer;
+  transition: color 0.15s ease;
+  padding: 0;
+}
+
+.eyeBtn:hover {
+  color: hsl(0, 0%, 20%);
+}
+
+/* Black submit button */
+.submitBtn {
+  width: 100%;
+  padding: 13px;
+  background: hsl(0, 0%, 6%);
+  color: hsl(0, 0%, 98%);
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: background 0.18s ease, transform 0.1s ease;
+  margin-top: 4px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: hsl(0, 0%, 14%);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Switch mode row */
+.switchRow {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: hsl(0, 0%, 46%);
+}
+
+/* Orange "Create an account" / "Log in" link — matching reference */
+.switchLink {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 2px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  color: hsl(28, 85%, 48%); /* warm orange matching reference */
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.switchLink:hover {
+  color: hsl(28, 85%, 38%);
+  text-decoration: underline;
+}
+
+/* ── RESPONSIVE ── */
+@media (min-width: 768px) {
+  .imagePanel {
+    display: flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .imageCard {
+    max-width: 480px;
+  }
+
+  .authCard {
+    padding: 48px 44px 40px;
+  }
+}

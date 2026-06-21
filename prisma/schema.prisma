@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  free
+  pro
+  admin
+}
+
+enum FileType {
+  pdf
+  txt
+  docx
+}
+
+enum DocumentType {
+  contract
+  nda
+  lease
+  policy
+  service_agreement
+  employment
+  partnership
+  other_legal
+}
+
+enum ScopeStatus {
+  legal
+  non_legal
+  unclassified
+}
+
+enum ProcessingStatus {
+  pending
+  processing
+  completed
+  failed
+}
+
+enum ClauseType {
+  termination
+  confidentiality
+  payment
+  liability
+  indemnity
+  dispute_resolution
+  intellectual_property
+  governing_law
+  other
+}
+
+enum RiskLevel {
+  low
+  medium
+  high
+}
+
+enum RiskCategory {
+  unusual_term
+  missing_clause
+  one_sided_obligation
+  vague_language
+  auto_renewal
+  broad_liability
+  ip_transfer
+  non_compete
+  other
+}
+
+enum ScopeClassification {
+  in_scope
+  out_of_scope
+  ambiguous
+}
+
+enum ConfidenceLevel {
+  high
+  medium
+  low
+  unresolved
+}
+
+enum TemplateType {
+  nda
+  service_agreement
+  employment_contract
+  lease
+  partnership_agreement
+}
+
+enum OutputFormat {
+  pdf
+  docx
+}
+
+enum GenerationStatus {
+  pending
+  completed
+  failed
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  displayName  String
+  passwordHash String?
+  role         UserRole  @default(free)
+  createdAt    DateTime  @default(now())
+  lastActiveAt DateTime  @updatedAt
+
+  documents          Document[]
+  sessions           Session[]
+  queryInteractions  QueryInteraction[]
+  generatedDocuments GeneratedDocument[]
+}
+
+model Document {
+  id               String           @id @default(uuid())
+  userId           String
+  sessionId        String?
+  fileName         String
+  fileType         FileType
+  fileSize         Int
+  storageRef       String
+  documentType     DocumentType     @default(other_legal)
+  scopeStatus      ScopeStatus      @default(unclassified)
+  processingStatus ProcessingStatus @default(pending)
+  uploadedAt       DateTime         @default(now())
+  processedAt      DateTime?
+  retentionExpiry  DateTime
+  extractedText    String?
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session   Session?  @relation(fields: [sessionId], references: [id])
+  clauses   Clause[]
+  riskFlags RiskFlag[]
+  queries   QueryInteraction[]
+}
+
+model Clause {
+  id             String     @id @default(uuid())
+  documentId     String
+  clauseType     ClauseType @default(other)
+  rawText        String
+  simplifiedText String?
+  pageNumber     Int?
+  startIndex     Int
+  endIndex       Int
+  isFlagged      Boolean    @default(false)
+  createdAt      DateTime   @default(now())
+
+  document  Document   @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  riskFlags RiskFlag[]
+}
+
+model RiskFlag {
+  id             String       @id @default(uuid())
+  clauseId       String
+  documentId     String
+  riskLevel      RiskLevel
+  riskCategory   RiskCategory
+  description    String
+  recommendation String
+  createdAt      DateTime     @default(now())
+
+  clause   Clause   @relation(fields: [clauseId], references: [id], onDelete: Cascade)
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+}
+
+model QueryInteraction {
+  id                  String              @id @default(uuid())
+  sessionId           String
+  documentId          String?
+  userId              String
+  userQuery           String
+  scopeClassification ScopeClassification
+  retrievedClauses    String[]
+  systemResponse      String?
+  confidenceLevel     ConfidenceLevel?
+  errorCode           String?
+  createdAt           DateTime            @default(now())
+  responseAt          DateTime?
+
+  session  Session   @relation(fields: [sessionId], references: [id])
+  document Document? @relation(fields: [documentId], references: [id])
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id             String   @id @default(uuid())
+  userId         String
+  documentId     String?
+  startedAt      DateTime @default(now())
+  lastActivityAt DateTime @updatedAt
+  isActive       Boolean  @default(true)
+  queryCount     Int      @default(0)
+  customName     String?
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents         Document[]
+  queryInteractions QueryInteraction[]
+}
+
+model GeneratedDocument {
+  id               String           @id @default(uuid())
+  userId           String
+  sessionId        String?
+  templateType     TemplateType
+  inputParameters  Json
+  outputFormat     OutputFormat
+  storageRef       String?
+  generationStatus GenerationStatus  @default(pending)
+  createdAt        DateTime         @default(now())
+  completedAt      DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

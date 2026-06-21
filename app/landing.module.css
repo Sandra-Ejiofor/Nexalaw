@@ -1,0 +1,782 @@
+/* ===== PAGE ROOT ===== */
+.page {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+/* Navbar lives INSIDE the hero section — transparent, no background */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: transparent;
+}
+
+.navInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navLogo img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navLinks {
+  display: none;
+  align-items: center;
+  gap: 36px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navLink {
+  font-size: 14px;
+  font-weight: 400;
+  color: hsl(0, 0%, 90%);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.navLink:hover {
+  color: hsl(0, 0%, 100%);
+}
+
+.navCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 22px;
+  background: hsl(0, 0%, 98%);
+  color: hsl(0, 0%, 6%);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  border: none;
+}
+
+.navCta:hover {
+  background: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 2%);
+}
+
+/* ===== HERO ===== */
+/* Full viewport height, relative so navbar + text overlays work */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+/* Next.js Image fill — object covers the whole section */
+.heroBg {
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
+}
+
+/* Subtle dark gradient: stronger at bottom-left where title sits,
+   lighter in the center so the statue is clearly visible */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to right,
+      hsla(0, 0%, 0%, 0.55) 0%,
+      hsla(0, 0%, 0%, 0.20) 40%,
+      hsla(0, 0%, 0%, 0.30) 70%,
+      hsla(0, 0%, 0%, 0.25) 100%
+    ),
+    linear-gradient(
+      to top,
+      hsla(0, 0%, 0%, 0.65) 0%,
+      transparent 50%
+    );
+}
+
+/* Bottom-left: headline */
+.heroBottomLeft {
+  position: absolute;
+  bottom: 56px;
+  left: 48px;
+  z-index: 5;
+  max-width: 380px;
+}
+
+.heroTitle {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  color: hsl(0, 0%, 98%);
+}
+
+/* Bottom-right: subtitle paragraph */
+.heroBottomRight {
+  position: absolute;
+  bottom: 56px;
+  right: 48px;
+  z-index: 5;
+  max-width: 300px;
+}
+
+.heroSubtitle {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.65;
+  color: hsl(0, 0%, 96%);
+  letter-spacing: 0.01em;
+}
+
+/* Shared CTA button (used in bottom CTA section) */
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  background: hsl(0, 0%, 8%);
+  color: hsl(0, 0%, 98%);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: all 0.2s ease;
+  border: 1px solid hsl(0, 0%, 8%);
+}
+
+.ctaPrimary:hover {
+  background: hsl(0, 0%, 14%);
+  transform: translateY(-1px);
+}
+
+/* ===== STATS ===== */
+.stats {
+  background: hsl(0, 0%, 97%);
+  border-top: 1px solid hsl(0, 0%, 88%);
+  border-bottom: 1px solid hsl(0, 0%, 88%);
+}
+
+.statsInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.statNumber {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 200px;
+  font-weight: 700;
+  color: hsl(0, 0%, 6%);
+  letter-spacing: -6px;
+  line-height: 0.9;
+}
+
+.statNumber sup {
+  font-size: 48px;
+  font-weight: 600;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+
+.statLabel {
+  font-size: 13px;
+  line-height: 1.5;
+  color: hsl(0, 0%, 50%);
+  text-align: center;
+}
+
+.statDivider {
+  display: none;
+  width: 1px;
+  height: 180px;
+  background: hsl(0, 0%, 82%);
+}
+
+/* ===== CIRCULAR SECTION ===== */
+.circularSection {
+  background: hsl(0, 0%, 0%);
+  padding: 100px 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.circularWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circularImage {
+  width: min(580px, 90vw);
+  height: auto;
+  display: block;
+}
+
+/* ===== FEATURES SECTION ===== */
+.features {
+  background: hsl(0, 0%, 100%);
+  padding: 80px 32px;
+}
+
+.featuresInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.featuresImageCol {
+  display: none;
+}
+
+.featuresImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.featuresContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.featuresTitle {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  color: hsl(0, 0%, 6%);
+}
+
+.featuresSubtitle {
+  font-size: 15px;
+  line-height: 1.7;
+  color: hsl(0, 0%, 48%);
+  max-width: 500px;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 24px;
+  margin-top: 8px;
+}
+
+.featureCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: hsl(0, 0%, 6%);
+  color: hsl(0, 0%, 96%);
+  flex-shrink: 0;
+}
+
+.featureTitle {
+  font-family: 'Geist', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: hsl(0, 0%, 8%);
+  margin: 0;
+}
+
+.featureDescription {
+  font-size: 13px;
+  line-height: 1.65;
+  color: hsl(0, 0%, 52%);
+  margin: 0;
+}
+
+/* ===== TESTIMONIALS — BENTO GRID ===== */
+.testimonials {
+  background: hsl(0, 0%, 0%);
+  padding: 72px 48px 80px;
+}
+
+.testimonialsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonialsHeading {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  color: hsl(0, 0%, 97%);
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  margin-bottom: 32px;
+}
+
+/* ── BENTO GRID ─────────────────────────────────────────── */
+/* Row 1: [avatar stack | main card | side card]            */
+/* Row 2: [small card   | wide card (spans 2 cols)]         */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  grid-template-rows: auto auto;
+  gap: 12px;
+}
+
+/* ── AVATAR STACK ── */
+.bentoAvatarStack {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Orange square box */
+.orangeAvatarBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: hsl(24, 80%, 48%);
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.orangeAvatarImg {
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Yellow circular box */
+.yellowAvatarBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: hsl(43, 95%, 50%);
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.yellowAvatarImg {
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ── MAIN QUOTE CARD ── */
+.bentoMainCard {
+  grid-column: 2;
+  grid-row: 1;
+  background: hsl(0, 0%, 100%);
+  border-radius: 8px;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* ── SIDE QUOTE CARD ── */
+.bentoSideCard {
+  grid-column: 3;
+  grid-row: 1;
+  background: hsl(0, 0%, 100%);
+  border-radius: 8px;
+  padding: 28px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ── BOTTOM SMALL CARD ── */
+.bentoSmallCard {
+  grid-column: 1;
+  grid-row: 2;
+  background: hsl(0, 0%, 100%);
+  border-radius: 8px;
+  padding: 24px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ── BOTTOM WIDE CARD ── */
+.bentoWideCard {
+  grid-column: 2 / 4;
+  grid-row: 2;
+  background: hsl(0, 0%, 100%);
+  border-radius: 8px;
+  padding: 28px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ── SHARED CARD ELEMENTS ── */
+.bentoQuoteMark {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 40px;
+  line-height: 1;
+  color: hsl(0, 0%, 25%);
+  display: block;
+}
+
+.bentoMainQuote {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: hsl(0, 0%, 6%);
+  letter-spacing: -0.5px;
+  font-style: normal;
+  flex: 1;
+}
+
+.bentoSideQuote {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: hsl(0, 0%, 15%);
+  flex: 1;
+}
+
+.bentoSmallQuote {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: hsl(0, 0%, 15%);
+  flex: 1;
+}
+
+.bentoWideQuote {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: hsl(0, 0%, 12%);
+  flex: 1;
+}
+
+.bentoDivider {
+  height: 1px;
+  background: hsl(0, 0%, 88%);
+  width: 100%;
+}
+
+.bentoAttribution {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bentoName {
+  font-size: 14px;
+  font-weight: 600;
+  color: hsl(0, 0%, 10%);
+}
+
+.bentoRole {
+  font-size: 12px;
+  color: hsl(0, 0%, 50%);
+}
+
+
+
+/* ===== BOTTOM CTA ===== */
+.ctaSection {
+  background: hsl(0, 0%, 98%);
+  padding: 100px 32px;
+  text-align: center;
+}
+
+.ctaSectionContent {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.ctaSectionTitle {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  color: hsl(0, 0%, 6%);
+}
+
+.ctaSectionSubtitle {
+  font-size: 16px;
+  line-height: 1.75;
+  color: hsl(0, 0%, 46%);
+  max-width: 560px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: hsl(0, 0%, 0%);
+  overflow: hidden;
+}
+
+/* Top row: brand left, nav right */
+.footerTop {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 48px 48px;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footerLogoLink {
+  display: inline-flex;
+  align-items: center;
+}
+
+.footerLogo {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  object-position: left;
+}
+
+.footerTagline {
+  font-size: 14px;
+  line-height: 1.65;
+  color: hsl(0, 0%, 58%);
+  max-width: 320px;
+}
+
+/* Three-column nav */
+.footerNav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.footerNavCol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Column heading — bold, white */
+.footerNavHeading {
+  font-size: 14px;
+  font-weight: 700;
+  color: hsl(0, 0%, 92%);
+  margin-bottom: 2px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.footerNavLink {
+  font-size: 13px;
+  color: hsl(0, 0%, 52%);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  line-height: 1.5;
+}
+
+.footerNavLink:hover {
+  color: hsl(0, 0%, 85%);
+}
+
+/* First link in Documents col has underline (matches reference) */
+.footerNavLinkUnderline {
+  font-size: 13px;
+  color: hsl(0, 0%, 52%);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+  line-height: 1.5;
+}
+
+.footerNavLinkUnderline:hover {
+  color: hsl(0, 0%, 85%);
+}
+
+/* ── NEXALAW WORDMARK ── */
+.footerWordmark {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(80px, 15vw, 210px);
+  font-weight: 800;
+  letter-spacing: -6px;
+  line-height: 1;
+  text-align: center;
+  user-select: none;
+  /* padding-top gives room so tall serifs aren't clipped */
+  padding: 24px 32px 0;
+  opacity: 0.5;
+  /* White gradient — bright top fading to slightly muted bottom */
+  background: linear-gradient(
+    to bottom,
+    hsl(0, 0%, 100%) 0%,
+    hsl(0, 0%, 100%) 35%,
+    hsl(0, 0%, 78%)  100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bottom disclaimer strip */
+.footerBottom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 48px 32px;
+  border-top: 1px solid hsl(0, 0%, 9%);
+}
+
+.footerDisclaimer {
+  font-size: 11px;
+  color: hsl(0, 0%, 28%);
+  line-height: 1.6;
+}
+
+
+/* ===== RESPONSIVE — TABLET ===== */
+@media (min-width: 640px) {
+  .statsInner {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+  }
+
+  .statItem {
+    flex: 1;
+    padding: 0 32px;
+  }
+
+  .statItem:first-child {
+    padding-left: 0;
+  }
+
+  .statDivider {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .navLinks {
+    display: flex;
+  }
+
+  .featuresInner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .featuresImageCol {
+    display: block;
+  }
+
+  .footerTop {
+    grid-template-columns: 320px 1fr;
+    gap: 60px;
+  }
+}
+
+/* Bento grid collapses to single column on mobile */
+@media (max-width: 767px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bentoAvatarStack {
+    flex-direction: row;
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .orangeAvatarBox,
+  .yellowAvatarBox {
+    width: 50%;
+    border-radius: 8px;
+  }
+
+  .bentoMainCard,
+  .bentoSideCard,
+  .bentoSmallCard,
+  .bentoWideCard {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .heroTitle {
+    font-size: clamp(38px, 4vw, 58px);
+  }
+
+  .heroBottomLeft {
+    bottom: 64px;
+    left: 64px;
+    max-width: 440px;
+  }
+
+  .heroBottomRight {
+    bottom: 64px;
+    right: 64px;
+    max-width: 320px;
+  }
+}

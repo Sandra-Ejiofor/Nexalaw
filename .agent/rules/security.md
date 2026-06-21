@@ -225,7 +225,7 @@ export function verifyFlutterwaveWebhook(
 
   return crypto.timingSafeEqual(
     Buffer.from(signature),
-    Buffer.from(expectedSignature)
+    Buffer.from(expectedSignature)errors that I am getting 
   )
 }
 ```

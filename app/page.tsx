@@ -20,22 +20,22 @@ function AnimatedCounter({ endValue, suffix = '' }: { endValue: number, suffix?:
   useEffect(() => {
     let animationFrameId: number;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        let startTime: number | null = null
-        const duration = 600
-        const step = (timestamp: number) => {
-          if (!startTime) startTime = timestamp
-          const progress = Math.min((timestamp - startTime) / duration, 1)
-          const easeOut = 1 - Math.pow(1 - progress, 3)
-          setCount(Math.floor(easeOut * endValue))
-          if (progress < 1) animationFrameId = requestAnimationFrame(step)
-          else setCount(endValue)
-        }
-        animationFrameId = requestAnimationFrame(step)
-      } else {
+      if (!entry?.isIntersecting) {
         cancelAnimationFrame(animationFrameId)
         setCount(0)
+        return
       }
+      let startTime: number | null = null
+      const duration = 600
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp
+        const progress = Math.min((timestamp - startTime) / duration, 1)
+        const easeOut = 1 - Math.pow(1 - progress, 3)
+        setCount(Math.floor(easeOut * endValue))
+        if (progress < 1) animationFrameId = requestAnimationFrame(step)
+        else setCount(endValue)
+      }
+      animationFrameId = requestAnimationFrame(step)
     }, { threshold: 0.1 })
     if (ref.current) observer.observe(ref.current)
     return () => {
@@ -53,7 +53,7 @@ function AnimatedWordmark({ text }: { text: string }) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting)
+      if (entry?.isIntersecting) setIsVisible(true)
     }, { threshold: 0.1 })
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
@@ -111,7 +111,7 @@ export default function LandingPage(): React.JSX.Element {
           if (!el.style.transitionDelay) {
             el.style.transitionDelay = `${index * 80}ms`
           }
-          el.classList.add(styles.visible)
+          if (styles.visible) el.classList.add(styles.visible)
           observer.unobserve(el)
         })
       }, { threshold: 0.15 })

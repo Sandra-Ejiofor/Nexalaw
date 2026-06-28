@@ -12,7 +12,7 @@
   letter-spacing: var(--typography-label-large-letter-spacing);
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease-in-out;
   min-height: 44px;
   border: none;
 }
@@ -29,7 +29,9 @@
 }
 
 .primary:hover:not(:disabled) {
-  opacity: 0.9;
+  background-color: hsl(0, 0%, 15%);
+  color: var(--color-on-primary);
+  transform: translateY(-1px);
 }
 
 /* Secondary variant */
@@ -39,7 +41,9 @@
 }
 
 .secondary:hover:not(:disabled) {
-  opacity: 0.9;
+  background-color: hsl(0, 0%, 90%);
+  color: var(--color-on-secondary);
+  transform: translateY(-1px);
 }
 
 /* Outline variant */
@@ -50,7 +54,10 @@
 }
 
 .outline:hover:not(:disabled) {
-  background-color: var(--color-surface-container);
+  background-color: hsl(0, 0%, 96%);
+  color: var(--color-on-surface);
+  border-color: hsl(0, 0%, 80%);
+  transform: translateY(-1px);
 }
 
 /* Ghost variant */
@@ -60,7 +67,9 @@
 }
 
 .ghost:hover:not(:disabled) {
-  background-color: var(--color-surface-container);
+  background-color: hsl(0, 0%, 96%);
+  color: var(--color-on-surface);
+  transform: translateY(-1px);
 }
 
 /* Danger variant */
@@ -71,6 +80,7 @@
 
 .danger:hover:not(:disabled) {
   background-color: hsl(0, 65%, 42%);
+  transform: translateY(-1px);
 }
 
 /* Sizes */

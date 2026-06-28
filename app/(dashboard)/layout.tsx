@@ -41,7 +41,7 @@ export default async function DashboardLayout({
         @media (max-width: 767px) {
           .dashboard-main {
             margin-left: 0;
-            padding: 24px 16px 80px;
+            padding: 72px 16px 24px;
           }
         }
       `}</style>
